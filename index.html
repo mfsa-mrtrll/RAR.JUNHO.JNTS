@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cliente J - Relatório de Resultados (RAR)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f8fafc;
+        }
+        h1, h2, h3, h4, .font-poppins {
+            font-family: 'Poppins', sans-serif;
+        }
+        .bg-lilac {
+            background-color: #9333ea;
+        }
+        .bg-lilac-dark {
+            background-color: #7e22ce;
+        }
+        .text-lilac {
+            color: #9333ea;
+        }
+        .border-lilac {
+            border-color: #9333ea;
+        }
+        .tab-active {
+            border-bottom: 3px solid #9333ea;
+            color: #9333ea;
+            background-color: rgba(147, 51, 234, 0.06);
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Table Styles */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+        }
+        .data-table th {
+            background-color: #f1f5f9;
+            text-align: left;
+            padding: 12px 16px;
+            font-weight: 600;
+            color: #334155;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .data-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #475569;
+        }
+        .data-table tr:hover {
+            background-color: #f8fafc;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col text-slate-800">
+
+    <!-- Header Navigation -->
+    <header class="bg-white sticky top-0 z-50 shadow-sm border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0 flex items-center gap-3">
+                    <div class="bg-lilac w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-md">
+                        J
+                    </div>
+                    <div>
+                        <span class="font-poppins font-bold text-xl text-slate-800 block leading-tight">Relatório Jurídico</span>
+                        <span class="text-xs font-semibold text-purple-600 uppercase tracking-wider">Cliente J • Junho/2026</span>
+                    </div>
+                </div>
+                <nav class="hidden md:flex space-x-1 h-full items-center text-xs font-bold uppercase tracking-wider">
+                    <button onclick="showSection('visao-geral')" class="nav-btn tab-active px-4 py-7 transition-all duration-200 hover:text-purple-600" id="btn-visao-geral">Visão Geral & Metas</button>
+                    <button onclick="showSection('tecnica')" class="nav-btn px-4 py-7 transition-all duration-200 hover:text-purple-600" id="btn-tecnica">Trilha Técnica</button>
+                    <button onclick="showSection('operacional')" class="nav-btn px-4 py-7 transition-all duration-200 hover:text-purple-600" id="btn-operacional">Trilha Operacional</button>
+                    <button onclick="showSection('equipe')" class="nav-btn px-4 py-7 transition-all duration-200 hover:text-purple-600" id="btn-equipe">Equipe & Gestão</button>
+                </nav>
+                <div class="md:hidden">
+                    <button onclick="toggleMobileMenu()" class="text-lilac p-2 rounded-lg hover:bg-purple-50">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Nav Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-200 px-4 pt-2 pb-4 space-y-1 text-sm font-semibold">
+            <button onclick="showSection('visao-geral'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md hover:bg-purple-50 text-slate-700">Visão Geral & Metas</button>
+            <button onclick="showSection('tecnica'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md hover:bg-purple-50 text-slate-700">Trilha Técnica</button>
+            <button onclick="showSection('operacional'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md hover:bg-purple-50 text-slate-700">Trilha Operacional</button>
+            <button onclick="showSection('equipe'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md hover:bg-purple-50 text-slate-700">Equipe & Gestão</button>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        
+        <!-- SECTION 1: VISÃO GERAL & METAS -->
+        <section id="visao-geral" class="content-section active">
+            <!-- Banner Header -->
+            <div class="bg-gradient-to-r from-purple-800 via-purple-700 to-indigo-700 text-white py-10 shadow-inner">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <div class="inline-block bg-white/20 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-2">RAR — RELATÓRIO DE RESULTADOS</div>
+                        <h2 class="text-3xl font-extrabold font-poppins">DADOS DO CLIENTE J</h2>
+                        <p class="text-purple-100 mt-1">Mês de Referência: Junho de 2026</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm px-4 py-3 rounded-xl border border-white/20 text-sm">
+                        <span class="block text-purple-200 text-xs font-semibold uppercase">Base Ativa Total</span>
+                        <span class="text-2xl font-bold">178 processos</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+                <!-- Key Metrics Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 border-l-4 border-l-purple-600">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Base Ativa</p>
+                                <p class="text-3xl font-extrabold text-slate-800 mt-2">178</p>
+                            </div>
+                            <div class="p-3 bg-purple-50 rounded-xl text-purple-600">
+                                <i class="fa-solid fa-folder-open text-xl"></i>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-3"><span class="text-slate-700 font-semibold">Sem migração</span> no período</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 border-l-4 border-l-blue-500">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Novas Entradas</p>
+                                <p class="text-3xl font-extrabold text-slate-800 mt-2">9</p>
+                            </div>
+                            <div class="p-3 bg-blue-50 rounded-xl text-blue-600">
+                                <i class="fa-solid fa-file-circle-plus text-xl"></i>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-3">Processos distribuídos no mês</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 border-l-4 border-l-emerald-500">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Encerramentos</p>
+                                <p class="text-3xl font-extrabold text-slate-800 mt-2">7</p>
+                            </div>
+                            <div class="p-3 bg-emerald-50 rounded-xl text-emerald-600">
+                                <i class="fa-solid fa-box-archive text-xl"></i>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-3">Baixados/encerrados no mês</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 border-l-4 border-l-indigo-500">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Audiências</p>
+                                <p class="text-3xl font-extrabold text-slate-800 mt-2">8</p>
+                            </div>
+                            <div class="p-3 bg-indigo-50 rounded-xl text-indigo-600">
+                                <i class="fa-solid fa-gavel text-xl"></i>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-3">2 Advogados internos | 6 Correspondentes</p>
+                    </div>
+                </div>
+
+                <!-- Metas do Cliente (O2) -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
+                        <h3 class="font-bold text-slate-800 text-lg flex items-center gap-2">
+                            <i class="fa-solid fa-bullseye text-purple-600"></i> O2) Resultado das Metas do Cliente
+                        </h3>
+                        <span class="text-xs bg-slate-100 text-slate-600 font-semibold px-3 py-1 rounded-full">Junho / 2026</span>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Card Meta 1 -->
+                        <div class="border border-rose-200 bg-rose-50/50 p-5 rounded-xl flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start">
+                                    <h4 class="font-bold text-slate-800">Encerramentos de Processos</h4>
+                                    <span class="text-xs bg-rose-200 text-rose-800 font-bold px-2.5 py-1 rounded-full uppercase">Não Atingido</span>
+                                </div>
+                                <div class="mt-4 flex items-baseline gap-3">
+                                    <span class="text-3xl font-extrabold text-rose-700">7</span>
+                                    <span class="text-sm font-semibold text-slate-500">Meta: 10 encerramentos</span>
+                                </div>
+                            </div>
+                            <div class="w-full bg-slate-200 h-2 rounded-full mt-4 overflow-hidden">
+                                <div class="bg-rose-500 h-full" style="width: 70%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Card Meta 2 -->
+                        <div class="border border-rose-200 bg-rose-50/50 p-5 rounded-xl flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start">
+                                    <h4 class="font-bold text-slate-800">Índice de Acordo</h4>
+                                    <span class="text-xs bg-rose-200 text-rose-800 font-bold px-2.5 py-1 rounded-full uppercase">Não Atingido</span>
+                                </div>
+                                <div class="mt-4 flex items-baseline gap-3">
+                                    <span class="text-3xl font-extrabold text-rose-700">0%</span>
+                                    <span class="text-sm font-semibold text-slate-500">Meta: 50%</span>
+                                </div>
+                                <p class="text-xs text-slate-600 mt-3 leading-relaxed bg-white/60 p-2.5 rounded-lg border border-rose-100">
+                                    <i class="fa-solid fa-circle-info text-purple-600 mr-1"></i>
+                                    O cliente não costuma firmar acordos (a maior base é PROCON e acabamos apenas cancelando o contrato, sem pagamentos). Nas demandas judiciais, o cliente prefere aguardar o julgamento.
+                                </p>
+                            </div>
+                            <div class="w-full bg-slate-200 h-2 rounded-full mt-4 overflow-hidden">
+                                <div class="bg-rose-500 h-full" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gestão da Carteira (O3) - Encerramentos e Aging -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Encerramentos Detalhados -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <h3 class="font-bold text-slate-800 text-lg mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-chart-pie text-purple-600"></i> O3) Detalhamento de Encerramentos (7)
+                        </h3>
+                        <div class="overflow-x-auto">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Desfecho</th>
+                                        <th class="text-right">Quantidade</th>
+                                        <th class="text-right">Proporção</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="font-semibold text-emerald-700"><i class="fa-regular fa-circle-check mr-2"></i>Favorável</td>
+                                        <td class="text-right font-bold">1</td>
+                                        <td class="text-right">14,29%</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold text-rose-700"><i class="fa-regular fa-circle-xmark mr-2"></i>Desfavorável</td>
+                                        <td class="text-right font-bold">1</td>
+                                        <td class="text-right">14,29%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Acordo pré-sentença</td>
+                                        <td class="text-right font-bold">0</td>
+                                        <td class="text-right">0,00%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Acordo pós-sentença</td>
+                                        <td class="text-right font-bold">0</td>
+                                        <td class="text-right">0,00%</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold text-amber-700"><i class="fa-solid fa-ban mr-2"></i>Extinção sem resolução do mérito</td>
+                                        <td class="text-right font-bold">1</td>
+                                        <td class="text-right">14,29%</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold text-purple-700"><i class="fa-solid fa-file-excel mr-2"></i>Arquivamento PROCON</td>
+                                        <td class="text-right font-bold text-purple-700">4</td>
+                                        <td class="text-right font-bold">57,14%</td>
+                                    </tr>
+                                    <tr class="bg-slate-50 font-bold">
+                                        <td>TOTAL GERAL</td>
+                                        <td class="text-right text-purple-600">7</td>
+                                        <td class="text-right">100,0%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Aging da Carteira -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <h3 class="font-bold text-slate-800 text-lg mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-hourglass-half text-purple-600"></i> Aging da Carteira (Tempo de Tramitação)
+                        </h3>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-sm font-semibold mb-1">
+                                    <span>Até 1 ano</span>
+                                    <span class="text-purple-600 font-bold">59 processos</span>
+                                </div>
+                                <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+                                    <div class="bg-purple-500 h-full" style="width: 33.15%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-sm font-semibold mb-1">
+                                    <span>1 a 3 anos</span>
+                                    <span class="text-purple-600 font-bold">119 processos</span>
+                                </div>
+                                <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+                                    <div class="bg-purple-600 h-full" style="width: 66.85%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-sm font-semibold mb-1">
+                                    <span>3 a 5 anos</span>
+                                    <span class="text-slate-400 font-bold">0 processos</span>
+                                </div>
+                                <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+                                    <div class="bg-slate-300 h-full" style="width: 0%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-sm font-semibold mb-1">
+                                    <span>Acima de 5 anos</span>
+                                    <span class="text-slate-400 font-bold">0 processos</span>
+                                </div>
+                                <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+                                    <div class="bg-slate-300 h-full" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs text-slate-600 flex justify-between items-center">
+                            <span>Soma Total do Aging:</span>
+                            <span class="font-bold text-slate-800 text-sm">178 processos</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 2: TRILHA TÉCNICA -->
+        <section id="tecnica" class="content-section">
+            <div class="bg-slate-900 text-white py-10 shadow-inner">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="inline-block bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-2">EXCELÊNCIA JURÍDICA</div>
+                    <h2 class="text-3xl font-extrabold font-poppins">TRILHA TÉCNICA</h2>
+                    <p class="text-slate-400 mt-1">Qualidade de Peças, Treinamento & Sustentações</p>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+                <!-- T1) QUALIDADE DAS PEÇAS -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="font-bold text-slate-800 text-lg mb-6 flex items-center gap-2 border-b border-slate-100 pb-3">
+                        <i class="fa-solid fa-file-signature text-purple-600"></i> T1) Qualidade das Peças
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Indicador</th>
+                                    <th>Meta</th>
+                                    <th>Resultado do Mês</th>
+                                    <th>Observações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="font-semibold">Aprovação na 1ª revisão (% sem correção)</td>
+                                    <td><span class="font-bold text-slate-700">100%</span></td>
+                                    <td><span class="text-purple-600 font-bold">72,73%</span></td>
+                                    <td>Sem ajustes: 7 de 11</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold">Volume revisado (revisadas / produzidas)</td>
+                                    <td>-</td>
+                                    <td><span class="font-bold text-slate-800">11</span></td>
+                                    <td>Todas</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold">Índice de retrabalho (% devolvidas p/ ajuste)</td>
+                                    <td><span class="font-bold text-slate-700">0%</span></td>
+                                    <td><span class="text-amber-600 font-bold">27,27%</span></td>
+                                    <td>Com ajustes: 3 de 11</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- T2) TREINAMENTO E DESENVOLVIMENTO -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="font-bold text-slate-800 text-lg mb-4 flex items-center gap-2 border-b border-slate-100 pb-3">
+                        <i class="fa-solid fa-graduation-cap text-purple-600"></i> T2) Treinamento e Desenvolvimento
+                    </h3>
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 text-sm text-slate-600 flex items-center gap-3">
+                        <i class="fa-solid fa-circle-check text-purple-600 text-lg"></i>
+                        <span><strong>Não há novatos</strong> em treinamento no período.</span>
+                    </div>
+                </div>
+
+                <!-- T3) DESPACHOS E SUSTENTAÇÕES ORAIS -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="font-bold text-slate-800 text-lg mb-6 flex items-center gap-2 border-b border-slate-100 pb-3">
+                        <i class="fa-solid fa-comments text-purple-600"></i> T3) Despachos e Sustentações Orais
+                    </h3>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                        <div class="bg-purple-50 p-5 rounded-xl border border-purple-100 text-center">
+                            <span class="text-xs font-bold text-purple-600 uppercase">Despachos no Mês</span>
+                            <p class="text-3xl font-extrabold text-slate-800 mt-1">0</p>
+                            <span class="text-xs text-slate-400 font-semibold">Total no mês</span>
+                        </div>
+
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 text-center">
+                            <span class="text-xs font-bold text-slate-500 uppercase">Sessões Pautadas</span>
+                            <p class="text-3xl font-extrabold text-slate-800 mt-1">0</p>
+                            <span class="text-xs text-slate-400">Total no mês</span>
+                        </div>
+
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 text-center">
+                            <span class="text-xs font-bold text-slate-500 uppercase">Sustentações Orais Realizadas</span>
+                            <p class="text-3xl font-extrabold text-slate-800 mt-1">0</p>
+                            <span class="text-xs text-slate-400">0 interno / 0 correspondente</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 3: TRILHA OPERACIONAL -->
+        <section id="operacional" class="content-section">
+            <div class="bg-purple-900 text-white py-10 shadow-inner">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="inline-block bg-purple-500/30 text-purple-200 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-2">PERFORMANCE DA CARTEIRA</div>
+                    <h2 class="text-3xl font-extrabold font-poppins">TRILHA OPERACIONAL</h2>
+                    <p class="text-purple-200 mt-1">SLAs, Entradas, Objetos e Distribuição Regional</p>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+                <!-- O1) CUMPRIMENTO DE PRAZOS E SLAS -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="font-bold text-slate-800 text-lg mb-6 flex items-center gap-2 border-b border-slate-100 pb-3">
+                        <i class="fa-solid fa-clock-check text-purple-600"></i> O1) Cumprimento de Prazos e SLAs
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                        <div class="p-4 bg-amber-50 rounded-xl border border-amber-200">
+                            <p class="text-xs font-bold text-amber-800 uppercase">Prazos sem Intercorrência</p>
+                            <p class="text-2xl font-bold text-amber-600 mt-2">81,82%</p>
+                            <p class="text-xs text-slate-500 mt-1">Meta: 100%</p>
+                        </div>
+
+                        <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-100">
+                            <p class="text-xs font-bold text-emerald-800 uppercase">SLA Fazer / Pagar</p>
+                            <p class="text-2xl font-bold text-emerald-600 mt-2">100%</p>
+                            <p class="text-xs text-slate-500 mt-1">Meta: 100%</p>
+                        </div>
+
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                            <p class="text-xs font-bold text-slate-600 uppercase">Bloqueios Judiciais</p>
+                            <p class="text-2xl font-bold text-slate-800 mt-2">0</p>
+                            <p class="text-xs text-slate-500 mt-1">Meta: 0</p>
+                        </div>
+
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                            <p class="text-xs font-bold text-slate-600 uppercase">Tempo Médio Bloqueios</p>
+                            <p class="text-2xl font-bold text-slate-800 mt-2">0 dias</p>
+                            <p class="text-xs text-slate-500 mt-1">Meta: 3 dias</p>
+                        </div>
+                    </div>
+
+                    <!-- Alert box for intercorrencia -->
+                    <div class="p-4 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900 space-y-1">
+                        <p class="font-bold uppercase flex items-center gap-1.5 text-amber-800">
+                            <i class="fa-solid fa-triangle-exclamation text-amber-600"></i> Intercorrência registrada no período:
+                        </p>
+                        <p><strong>Descrição:</strong> Houve perda de 2 prazos de defesa administrativa.</p>
+                        <p><strong>Solução:</strong> Enviamos as defesas por e-mail para o PROCON e foram recebidas sem prejuízo.</p>
+                    </div>
+                </div>
+
+                <!-- C3) ENTRADAS NO MÊS POR ESTADO E OBJETO -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Estados -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <div class="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+                            <h3 class="font-bold text-slate-800 text-lg flex items-center gap-2">
+                                <i class="fa-solid fa-map-location-dot text-purple-600"></i> C3) Entradas no Mês por Estado (UF)
+                            </h3>
+                            <span class="text-xs font-bold bg-purple-100 text-purple-800 px-2.5 py-1 rounded-full">Total: 9</span>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Estado (UF)</th>
+                                        <th class="text-right">Novos Processos</th>
+                                        <th class="text-right">% do Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td><strong>MG</strong> - Minas Gerais</td><td class="text-right font-bold text-purple-600">8</td><td class="text-right">88,89%</td></tr>
+                                    <tr><td><strong>BA</strong> - Bahia</td><td class="text-right font-bold">1</td><td class="text-right">11,11%</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Objeto -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <div class="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+                            <h3 class="font-bold text-slate-800 text-lg flex items-center gap-2">
+                                <i class="fa-solid fa-list-check text-purple-600"></i> C3) Entradas por Objeto
+                            </h3>
+                            <span class="text-xs font-bold bg-purple-100 text-purple-800 px-2.5 py-1 rounded-full">Total: 9</span>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Objeto / Motivo</th>
+                                        <th class="text-right">Quantidade</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>CANCELAMENTO</td><td class="text-right font-bold text-purple-600">3</td></tr>
+                                    <tr><td>COBRANÇA INDEVIDA</td><td class="text-right font-bold text-purple-600">3</td></tr>
+                                    <tr><td>DESCONTENTAMENTO</td><td class="text-right font-bold">2</td></tr>
+                                    <tr><td>AUSÊNCIA DE BAIXA</td><td class="text-right font-bold">1</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- C4) BASE ATIVA POR REGIÃO -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 pb-3 border-b border-slate-100">
+                        <div>
+                            <h3 class="font-bold text-slate-800 text-lg flex items-center gap-2">
+                                <i class="fa-solid fa-earth-americas text-purple-600"></i> C4) Base Ativa Por Região
+                            </h3>
+                            <p class="text-xs text-slate-500 mt-0.5">Migração no período: <strong>Não</strong></p>
+                        </div>
+                        <span class="mt-2 sm:mt-0 text-sm font-bold bg-purple-50 text-purple-700 px-4 py-1.5 rounded-xl border border-purple-100">Base Total: 178 processos</span>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-4 text-center">
+                        <div class="p-6 bg-slate-50 rounded-xl border border-slate-200">
+                            <span class="text-xs font-bold text-slate-500 uppercase">Sudeste</span>
+                            <p class="text-4xl font-extrabold text-purple-600 mt-1">171</p>
+                            <span class="text-xs text-slate-500 font-semibold mt-1 block">96,07% da base</span>
+                        </div>
+
+                        <div class="p-6 bg-slate-50 rounded-xl border border-slate-200">
+                            <span class="text-xs font-bold text-slate-500 uppercase">Nordeste</span>
+                            <p class="text-4xl font-extrabold text-slate-800 mt-1">7</p>
+                            <span class="text-xs text-slate-500 font-semibold mt-1 block">3,93% da base</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 4: EQUIPE & GESTÃO -->
+        <section id="equipe" class="content-section">
+            <div class="bg-slate-800 text-white py-10 shadow-inner">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="inline-block bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-2">RECURSOS HUMANOS E OPERAÇÃO</div>
+                    <h2 class="text-3xl font-extrabold font-poppins">EQUIPE & GESTÃO</h2>
+                    <p class="text-slate-400 mt-1">Organograma, Produtividade, Audiências e Controles</p>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+                <!-- C5) ORGANOGRAMA E MOVIMENTAÇÕES -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="font-bold text-slate-800 text-lg mb-6 flex items-center gap-2 border-b border-slate-100 pb-3">
+                        <i class="fa-solid fa-sitemap text-purple-600"></i> C5) Organograma e Estrutura da Equipe
+                    </h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                        <div class="bg-purple-50 p-5 rounded-xl border border-purple-100">
+                            <span class="text-xs font-bold text-purple-600 uppercase tracking-wider">Coordenação</span>
+                            <p class="text-xl font-extrabold text-slate-800 mt-1">MFSA</p>
+                        </div>
+
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Liderança / Estratégico</span>
+                            <p class="text-sm font-semibold text-slate-500 mt-2">Não há liderança dedicada</p>
+                        </div>
+
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Operação Ativa</span>
+                            <p class="text-xl font-bold text-slate-800 mt-1">1 Advogado | 0 Estagiários</p>
+                        </div>
+
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Turnover / Saídas</span>
+                            <p class="text-xl font-bold text-emerald-600 mt-1">0</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 p-4 bg-slate-50 rounded-xl text-sm text-slate-600 border border-slate-200 flex items-center gap-2">
+                        <i class="fa-solid fa-user-check text-purple-600"></i>
+                        <span>Pessoas em treinamento: <strong>0</strong></span>
+                    </div>
+                </div>
+
+                <!-- O4) PRODUTIVIDADE DA EQUIPE -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 pb-3 border-b border-slate-100">
+                        <h3 class="font-bold text-slate-800 text-lg flex items-center gap-2">
+                            <i class="fa-solid fa-list-check text-purple-600"></i> O4) Produtividade e Atividades
+                        </h3>
+                        <span class="mt-2 sm:mt-0 text-xs font-bold bg-slate-100 text-slate-700 px-3 py-1.5 rounded-full">
+                            Média de atividades/colaborador: <strong>24</strong>
+                        </span>
+                    </div>
+
+                    <div class="overflow-x-auto mb-6">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Advogado (Sigla)</th>
+                                    <th class="text-center">Prazos</th>
+                                    <th class="text-center">Compromissos</th>
+                                    <th class="text-right">Total Concluído</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="font-bold text-slate-800">Claudemir (CRJ)</td>
+                                    <td class="text-center font-semibold">11</td>
+                                    <td class="text-center font-semibold">13</td>
+                                    <td class="text-right font-bold text-purple-600">24</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-700">
+                            <span class="font-bold block mb-1 uppercase"><i class="fa-regular fa-calendar-check mr-1"></i> Recessos / Período:</span>
+                            0 recessos registrados
+                        </div>
+                        <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-200 text-xs text-emerald-900">
+                            <span class="font-bold block mb-1 uppercase"><i class="fa-solid fa-shield-halved mr-1"></i> Incidentes Críticos:</span>
+                            0 incidentes registrados no período
+                        </div>
+                    </div>
+                </div>
+
+                <!-- C1, C2, C6, C7 - DADOS COMPLEMENTARES -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- C1) AUDIÊNCIAS REALIZADAS -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <h3 class="font-bold text-slate-800 text-lg mb-4 flex items-center gap-2 border-b border-slate-100 pb-2">
+                            <i class="fa-solid fa-users-rectangle text-purple-600"></i> C1) Audiências Realizadas (8)
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center p-3 bg-slate-50 rounded-xl">
+                                <span class="text-sm font-semibold text-slate-700">Por Advogado Interno</span>
+                                <span class="text-lg font-bold text-purple-600">2</span>
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded-xl">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-sm font-semibold text-slate-700">Por Correspondente</span>
+                                    <span class="text-lg font-bold text-slate-800">6</span>
+                                </div>
+                                <div class="text-xs text-slate-500 flex gap-4 mt-2">
+                                    <span class="bg-white px-2 py-1 rounded border border-slate-200">1 Online</span>
+                                    <span class="bg-white px-2 py-1 rounded border border-slate-200">5 Presenciais</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CONTROLES E AUTOMAÇÃO (C2, C6, C7) -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                        <h3 class="font-bold text-slate-800 text-lg flex items-center gap-2 border-b border-slate-100 pb-2">
+                            <i class="fa-solid fa-robot text-purple-600"></i> Automação & Pendências
+                        </h3>
+
+                        <div class="grid grid-cols-2 gap-4 text-center">
+                            <div class="p-3 bg-slate-50 rounded-xl">
+                                <span class="text-xs font-bold text-slate-400 uppercase">Relatórios Cliente (C2)</span>
+                                <p class="text-xl font-bold text-slate-800 mt-1">0</p>
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded-xl">
+                                <span class="text-xs font-bold text-slate-400 uppercase">Defesas ENTER (C6)</span>
+                                <p class="text-xl font-bold text-slate-800 mt-1">0</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-bold text-xs uppercase text-slate-500 mb-2">C7) Pendências de Pauta por Advogado</h4>
+                            <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-xs text-emerald-800 flex items-center gap-2 font-semibold">
+                                <i class="fa-solid fa-circle-check text-emerald-600"></i>
+                                <span>Nenhuma pendência de pauta.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center text-slate-500 text-xs">
+            <p>&copy; 2026 — Relatório de Resultados Jurídicos • Cliente J (Junho/2026)</p>
+        </div>
+    </footer>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            const target = document.getElementById(sectionId);
+            if (target) {
+                target.classList.add('active');
+            }
+
+            // Update navbar tabs active state
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('tab-active');
+            });
+            const activeBtn = document.getElementById('btn-' + sectionId);
+            if (activeBtn) {
+                activeBtn.classList.add('tab-active');
+            }
+
+            // Scroll smoothly to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu) {
+                menu.classList.toggle('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
